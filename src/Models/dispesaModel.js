@@ -3,24 +3,26 @@ const connection = require("../Config/dbConnection")
 
 const getAll = async () =>{
 
-    const [dispesas] = await connection.execute(`
-    SELECT d.valor, d.data_compra, d.descricao, tp.tipo AS tipo_pagamento, c.nome AS nome_categoria
+    const [despesas] = await connection.execute(`
+    SELECT d.id,d.valor, d.data_compra, d.descricao, tp.tipo AS tipo_pagamento, c.nome AS nome_categoria
     FROM despesas d
     JOIN tipos_pagamento tp ON d.tipo_pagamento_id = tp.id
     JOIN categorias c ON d.categoria_id = c.id;`)
     
-    return dispesas;
+    return {despesas};
 } 
 
-const createDispesa = async (dispesas) =>{
-    const { valor } = dispesas;
+const createDespesa = async (despesas) =>{
+    const {valor,descricao,tipo_pagamento_id,categoria_id} = despesas;
 
-    const dateUTC = new Date(Date.now()).toUTCString();
-    const query = 'INSERT INTO DESPESAS() VALUES(?,?,?)';
-    
+    const dateUTC = new Date();
 
-    const createDispesa = await connection.execute(query,[valor,'pendente',dateUTC]);
+    const query = `INSERT INTO despesas(valor, data_compra,descricao,tipo_pagamento_id, categoria_id) VALUES(?,?,?,?,?)`;
+
+    const [creatDespesa] = await connection.execute(query,[valor,dateUTC,descricao,tipo_pagamento_id,categoria_id])
+
+return {insertId: creatDespesa.insertId}
 }
 
 
-module.exports = {getAll,createDispesa}
+module.exports = {getAll,createDespesa}
