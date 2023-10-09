@@ -1,4 +1,4 @@
-const dpController = require('../Controllers/dispesasController')
+const dpController = require('../Controllers/despesasController')
 
 const despesaMiddleware = require('../Middleware/Middleware')
 const express = require ('express')

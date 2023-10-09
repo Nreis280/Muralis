@@ -1,4 +1,3 @@
-/* const { Query } = require("mysql2/typings/mysql/lib/protocol/sequences/Query"); */
 const connection = require("../Config/dbConnection")
 
 const getAll = async () =>{

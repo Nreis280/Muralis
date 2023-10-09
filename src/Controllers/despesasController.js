@@ -1,4 +1,4 @@
-const despesaModel = require('../Models/dispesaModel');
+const despesaModel = require('../Models/despesaModel');
 
 const getAll = async (req,res) =>{
     const despesas = await despesaModel.getAll();
