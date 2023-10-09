@@ -1,12 +1,12 @@
 const dpController = require('../Controllers/dispesasController')
 
-
+const despesaMiddleware = require('../Middleware/Middleware')
 const express = require ('express')
 
 const router = express.Router();
 
 router.get('/listar',dpController.getAll )
-router.post('/criar',dpController.createDespesa)
+router.post('/criar',despesaMiddleware.validarCreate,dpController.createDespesa)
 
 
 

@@ -4,10 +4,11 @@ const connection = require("../Config/dbConnection")
 const getAll = async () =>{
 
     const [despesas] = await connection.execute(`
-    SELECT d.id,d.valor, d.data_compra, d.descricao, tp.tipo AS tipo_pagamento, c.nome AS nome_categoria
+    SELECT d.*, tp.tipo AS tipo_pagamento, c.nome AS nome_categoria
     FROM despesas d
     JOIN tipos_pagamento tp ON d.tipo_pagamento_id = tp.id
-    JOIN categorias c ON d.categoria_id = c.id;`)
+    JOIN categorias c ON d.categoria_id = c.id
+    WHERE MONTH(d.data_compra) = MONTH(NOW()) AND YEAR(d.data_compra) = YEAR(NOW()) ORDER BY d.id;`)
     
     return {despesas};
 } 
